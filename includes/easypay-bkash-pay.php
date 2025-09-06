@@ -41,13 +41,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="<?php language_attributes(); ?>">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="<?php bloginfo( 'charset' ); ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../assets/easypay-style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
     <title>EasyPay - Bkash Pay</title>
+    <script src="../assets/easypay-script.js"></script>
 </head>
 <body>
     
@@ -89,39 +90,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </div>
     </div>
 </section>
-
-<script>
-    function copyNumber() {
-        const number = document.getElementById("bkashNumber").textContent.trim();
-        navigator.clipboard.writeText(number).then(() => {
-            alert("Number Copied: " + number);
-        })
-    }
-
-// Time 
-let timeLeft = 15 * 60;
-
-function startCountdown() {
-    const timer = setInterval(() => {
-        let minutes = Math.floor(timeLeft / 60);
-        let seconds = timeLeft % 60;
-
-        minutes = minutes < 10 ? "0" + minutes : minutes;
-        seconds = seconds < 10 ? "0" + seconds : seconds;
-
-        document.getElementById("timeBox").innerText = `${minutes} : ${seconds} min`;
-
-        if (timeLeft <= 0) {
-            clearInterval(timer);
-            window.location.replace("https://shohelrana.top/");
-        }
-
-        timeLeft--;
-    }, 1000);
-}
-
-startCountdown();
-</script>
 
 
 </body>

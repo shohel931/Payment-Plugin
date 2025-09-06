@@ -28,6 +28,8 @@ add_action('wp_enqueue_scripts', function() {
     if (function_exists('is_order_received_page') && is_order_received_page() ) {
         wp_enqueue_style('easypay-style', plugins_url('assets/easypay-style.css', __FILE__), [], '1.0');
         wp_enqueue_style('easypay-fa', 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css', [], '7.0.1');
+
+        wp_enqueue_script('easypay-script', plugins_url('assets/easypay-script.js', __FILE__), ['jquery'], '1.0', true);
     }
 });
 
