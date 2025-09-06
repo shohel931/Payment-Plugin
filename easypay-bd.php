@@ -32,24 +32,6 @@ add_action('wp_enqueue_scripts', function() {
 });
 
 
-// Plugin activation hook
-register_activation_hook(__FILE__, 'easypay_create_payment_page');
-
-function easypay_create_payment_page() {
-    $page_check = get_page_by_title('EasyPay Payments');
-    if (!isset($page_check->ID)) {
-        $page_content = '[easypau_payment_page]';
-
-        $page_id = wp_insert_post(array(
-            'post_title' => 'EasyPay Payments',
-            'post_type' => 'page',
-            'post_name' => 'easypay-payments',
-            'post_content' => $page_content,
-            'post_status' => 'publish',
-            'post_author' => 1,
-        ));
-    }
-}
 
 
 
@@ -78,10 +60,14 @@ class WC_EasyPay_Bkash extends WC_Payment_Gateway {
         $this->method_title = 'EasyPay - Bkash';
         $this->method_description = 'Pay with Bkash using EasyPay BD.';
         $this->title = 'EasyPay - Bkash';
-        $this->enabled = ( get_option('easypay_button_option_bkash') == 1 ) ? 'yes' : 'no';
 
         $this->init_form_fields();
         $this->init_settings();
+
+        $saved = get_option('easypay_button_option_bkash') ;
+        if ($saved !== false) {
+            $this->enabled = ($saved == 1) ? 'yes' : 'no';
+        }
 
         add_action('woocommerce_update_options_payment_gateways_' . $this->id, [ $this, 'process_admin_options']);
     }
@@ -92,31 +78,14 @@ class WC_EasyPay_Bkash extends WC_Payment_Gateway {
                 'title' => 'Enable/Disable',
                 'type' => 'checkbox',
                 'label' => 'Enable Bkash Payment',
-                'default' => get_option('easypay_button_option_bkash') == 1  ? 'yes' : 'no'
-            ],
-            'number' => [
-                'title' => 'Agent/Personal Number',
-                'type' => 'number',
-                'description' => 'Enter your Bkash Agent or Personal number',
-                'default' => get_option('easypay_number_option_bkash'),
-                'desc_tip' => true
-            ],
-            'type' => [
-                'title' => 'Type',
-                'type' => 'select',
-                'description' => 'Select Bkash Account Type',
-                'default' => get_option('easypay_select_option_bkash'),
-                'options' => [
-                    'Agent' => 'Agent',
-                    'Personal' => 'Personal',
-                ],
+                'default' => 'no'
             ],
         ];
     }
 
     public function process_payment($order_id) {
         $order = wc_get_order($order_id);
-        $redirect_url = plugins_url('includes/gateway.php', __FILE__);
+        $redirect_url = plugins_url('includes/easypay-bkash-pay.php', __FILE__);
         return [
             'result' => 'success',
             'redirect' => $redirect_url,
@@ -135,10 +104,14 @@ class WC_EasyPay_Nagad extends WC_Payment_Gateway {
         $this->method_title = 'EasyPay - Nagad';
         $this->method_description = 'Pay with Nagad using EasyPay BD.';
         $this->title = 'EasyPay - Nagad';
-        $this->enabled = ( get_option('easypay_button_option_nagad') == 1 ) ? 'yes' : 'no';
 
         $this->init_form_fields();
         $this->init_settings();
+
+        $saved = get_option('easypay_button_option_nagad') ;
+        if ($saved !== false) {
+            $this->enabled = ($saved == 1) ? 'yes' : 'no';
+        }
 
         add_action('woocommerce_update_options_payment_gateways_' . $this->id, [ $this, 'process_admin_options']);
     }
@@ -149,16 +122,18 @@ class WC_EasyPay_Nagad extends WC_Payment_Gateway {
                 'title' => 'Enable/Disable',
                 'type' => 'checkbox',
                 'label' => 'Enable Nagad Payment',
-                'default' => get_option('easypay_button_option_nagad') == 1  ? 'yes' : 'no'
+                'default' => 'no'
             ],
         ];
     }
 
+    
     public function process_payment($order_id) {
         $order = wc_get_order($order_id);
+        $redirect_url = plugins_url('includes/easypay-nagad-pay.php', __FILE__);
         return [
             'result' => 'success',
-            'redirect' => sitr_url('/')
+            'redirect' => $redirect_url,
         ];
     }
 }
@@ -174,10 +149,14 @@ class WC_EasyPay_Roket extends WC_Payment_Gateway {
         $this->method_title = 'EasyPay - Roket';
         $this->method_description = 'Pay with Roket using EasyPay BD.';
         $this->title = 'EasyPay - Roket';
-        $this->enabled = ( get_option('easypay_button_option_roket') == 1 ) ? 'yes' : 'no';
 
         $this->init_form_fields();
         $this->init_settings();
+
+        $saved = get_option('easypay_button_option_roket') ;
+        if ($saved !== false) {
+            $this->enabled = ($saved == 1) ? 'yes' : 'no';
+        }
 
         add_action('woocommerce_update_options_payment_gateways_' . $this->id, [ $this, 'process_admin_options']);
     }
@@ -188,16 +167,18 @@ class WC_EasyPay_Roket extends WC_Payment_Gateway {
                 'title' => 'Enable/Disable',
                 'type' => 'checkbox',
                 'label' => 'Enable Roket Payment',
-                'default' => get_option('easypay_button_option_roket') == 1  ? 'yes' : 'no'
+                'default' => 'no'
             ],
         ];
     }
 
+   
     public function process_payment($order_id) {
         $order = wc_get_order($order_id);
+        $redirect_url = plugins_url('includes/easypay-roket-pay.php', __FILE__);
         return [
             'result' => 'success',
-            'redirect' => sitr_url('/')
+            'redirect' => $redirect_url,
         ];
     }
 }
@@ -213,10 +194,14 @@ class WC_EasyPay_Upay extends WC_Payment_Gateway {
         $this->method_title = 'EasyPay - Upay';
         $this->method_description = 'Pay with Upay using EasyPay BD.';
         $this->title = 'EasyPay - Upay';
-        $this->enabled = ( get_option('easypay_button_option_upay') == 1 ) ? 'yes' : 'no';
 
         $this->init_form_fields();
         $this->init_settings();
+
+        $saved = get_option('easypay_button_option_upay') ;
+        if ($saved !== false) {
+            $this->enabled = ($saved == 1) ? 'yes' : 'no';
+        }
 
         add_action('woocommerce_update_options_payment_gateways_' . $this->id, [ $this, 'process_admin_options']);
     }
@@ -227,16 +212,18 @@ class WC_EasyPay_Upay extends WC_Payment_Gateway {
                 'title' => 'Enable/Disable',
                 'type' => 'checkbox',
                 'label' => 'Enable Upay Payment',
-                'default' => get_option('easypay_button_option_upay') == 1  ? 'yes' : 'no'
+                'default' => 'no'
             ],
         ];
     }
 
+    
     public function process_payment($order_id) {
         $order = wc_get_order($order_id);
+        $redirect_url = plugins_url('includes/easypay-upay-pay.php', __FILE__);
         return [
             'result' => 'success',
-            'redirect' => sitr_url('/')
+            'redirect' => $redirect_url,
         ];
     }
 }
@@ -244,110 +231,5 @@ class WC_EasyPay_Upay extends WC_Payment_Gateway {
 
 
 
-
-
-
-// Hook Register
-add_action('woocommerce_thankyou', 'easypay_custom_checkout_page', 10, 1);
-function easypay_custom_checkout_page($order_id) {
-    if (!$order_id) return;
-    $order = wc_get_order($order_id);
-    if (!$order) return;
-
-
-
-$method = $order->get_payment_method();
-
-$methods = [
-    'easypay_bkash' => 'Bkash',
-    'easypay_nagad' => 'Nagad',
-    'easypay_roket' => 'Roket',
-    'easypay_upay' => 'Upay',
-];
-
-if (!array_key_exists($method, $methods)) return;
-$method_name = $methods[$method];
-
-$key = strtolower($method_name);
-$number = get_option("easypay_number_option_{$key}");
-$type = get_option("easypay_select_option_{$key}");
-$description = get_option("easypay_description_option_{$key}");
-
-
-
-
-?>
-
-<section id="easypay_main_area">
-    <div class="easypay_sub_area">
-        <div class="easypay_text">
-        <h2>EasyPay BD</h2>
-        <p>Pay with <?php echo $method_name; ?></p>
-        <p id="timeBox">15 : 00 min</p>
-        </div>
-        <div class="easypay_box">
-            <div class="easypay_content">
-                <h5>Order ID : <span>#<?php echo $order->get_id(); ?></span></h5>
-            </div>
-            <div class="easypay_content">
-                <h5>Total Pay : <span><?php echo $order->get_total(); ?> Taka.</span></h5>
-            </div>
-            <div class="easypay_content">
-                <h5>Method : <span><?php echo $method_name; ?>.</span></h5>
-            </div>
-            <div class="easypay_content">
-                <h5>Type : <span><?php echo $type; ?> Number.</span></h5>
-            </div>
-            <div class="easypay_content">
-                <h5>Number : <span id="bkashNumber"><?php echo $number; ?><b class="copy_btn" onclick="copyNumber()"><i class="fa-regular fa-copy"></i></b></span><b>Copy</b></h5>
-            </div>
-            <div class="easypay_content">
-                <h5>Description : <span><?php echo $description; ?></span></h5>
-            </div>
-            <div class="easypay_content">
-                <form method="post" enctype="multipart/form-data">
-                    <span>Transaction : <input type="text" name="transaction" id="" placeholder="ES987NLG9" required></span><br><br>
-                    <span>Upload Image : <input type="file" name="image" id=""></span> <br><br>
-                    <input type="submit" value="Submit">
-                </form>
-            </div>
-        </div>
-    </div>
-</section>
-
-<script>
-    function copyNumber() {
-        const number = document.getElementById("bkashNumber").innerText;
-        navigator.clipboard.writeText(number).then(() => {
-            alert("Number Copied: " + number);
-        })
-    }
-
-// Time 
-let timeLeft = 15 * 60;
-
-function startCountdown() {
-    const timer = setInterval(() => {
-        let minutes = Math.floor(timeLeft / 60);
-        let seconds = timeLeft % 60;
-
-        minutes = minutes < 10 ? "0" + minutes : minutes;
-        seconds = seconds < 10 ? "0" + seconds : seconds;
-
-        document.getElementById("timeBox").innerText = `${minutes} : ${seconds} min`;
-
-        if (timeLeft <= 0) {
-            clearInterval(timer);
-            window.location.href = "https://shohelrana.top/";
-        }
-
-        timeLeft--;
-    }, 1000);
-}
-
-startCountdown();
-</script>
-<?php
-}
 
 

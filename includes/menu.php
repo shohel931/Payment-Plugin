@@ -136,6 +136,52 @@ function easypay_upay_callback() {
     </div>
     <?php 
 }
+// All Transation Sub Menu Page Callback
+function easypay_transactions_callback() {
+      global $wpdb;
+
+        $table_name = $wpdb->prefix . 'easypay_transactions';
+        $results = $wpdb->get_results("SELECT * FROM $table_name");
+
+  ?>
+  <div class="wrap"><h1>All Transactions</h1>
+  <table class="widefate fixed striped">
+    <thead>
+        <tr>
+            <th>No </th>
+            <th>User ID </th>
+            <th>Method </th>
+            <th>Type </th>
+            <th>Transaction ID </th>
+            <th>Amount </th>
+            <th>Status </th>
+        </tr>
+    </thead>
+    <tbody>
+  <?php
+
+  if ($results) {
+    $i = 1;
+    foreach ($results as $row) {
+        echo '<tr>
+            <td>' . $i++ . '</td>
+            <td>#' . esc_html($row->user_id) . '</td>
+            <td>' . esc_html($row->method) . '</td>
+            <td>' . esc_html($row->type) . '</td>
+            <td>' . esc_html($row->transaction_id) . '</td>
+            <td>' . esc_html($row->amount) . '</td>
+            <td>' . esc_html($row->status) . '</td>
+        </tr>';
+    }
+  } else {
+    echo '<tr><td colspan="7">No transactions found.</td></tr>';
+  }
+    ?>
+        </tbody>
+    </table>
+    </div>
+    <?php
+}
 
 
 
