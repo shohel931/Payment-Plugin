@@ -18,7 +18,7 @@
                 <img src="<?php echo plugins_url('/assets/success.png', __FILE__); ?>" alt="success" style="width: 100px; height: 100px; margin-bottom: 10px;">
             </div>
             <div class="easypay_content">
-                <input type="submit"  value="Back Home">
+                <a href="<?php echo site_url(); ?>" class="bc_btn">Back Home</a>
             </div>
         </div>
     </div>
