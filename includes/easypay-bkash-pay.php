@@ -35,7 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     WC()->cart->empty_cart();
 
     // Redirect to thank you page
-    wp_safe_redirect(site_url('/processing.php?order_id=' . $order->get_id()));
+    wp_safe_redirect(plugins_url('includes/easypay-success.php?order_id=' . $order->get_id()));
     exit;
 }
 

@@ -65,7 +65,8 @@ body {
     border-radius: 5px;
     text-transform: uppercase;
 }
-.easypay_content input[type="submit"] {
+.easypay_content input[type="submit"],
+.bc_btn {
     padding: 10px 20px;
     border: none;
     background-color: #5f27cd;
@@ -75,7 +76,8 @@ body {
     cursor: pointer;
     transition: 0.5s;
 }
-.easypay_content input[type="submit"]:hover {
+.easypay_content input[type="submit"]:hover,
+.bc_btn:hover {
     background-color: #000;
 }
 
