@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../assets/easypay-style.css">
-    <title>Document</title>
+    <title>EasyPay - Prossesing</title>
 </head>
 <body>
     
@@ -18,7 +18,7 @@
                 <h5>Order ID : <span>#<?php echo $order ? $order->get_id() : ''; ?></span></h5>
             </div>
             <div class="easypay_content">
-                <button href="<?php echo home_url(); ?>">Back Home</button>
+                <input type="button" onclick="window.location.href='<?php echo home_url(); ?>';" value="Back Home">
             </div>
         </div>
     </div>
