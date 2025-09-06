@@ -113,7 +113,7 @@ function startCountdown() {
 
         if (timeLeft <= 0) {
             clearInterval(timer);
-            window.location.href = "https://shohelrana.top/";
+            window.location.replace("https://shohelrana.top/");
         }
 
         timeLeft--;
