@@ -24,7 +24,8 @@ $description = get_option('easypay_description_option_nagad');
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $transaction = sanitize_text_field($_POST['transaction']);
     
- 
+  // order update
+    $order->update_status('processing', 'Payment completed via EasyPay Nagad. Transaction ID: ' . $transaction);
     // Empty cart
     WC()->cart->empty_cart();
 
@@ -60,10 +61,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </div>
         <div class="easypay_box">
             <div class="easypay_content">
-                <h5>Order ID : <span>#</span></h5>
+                <h5>Order ID : <span>#<?php echo $order ? $order->get_id() : 'Not Found'; ?></span></h5>
             </div>
             <div class="easypay_content">
-                <h5>Total Pay : <span> Taka.</span></h5>
+                <h5>Total Pay : <span><?php echo $order ? $order->get_total() : '0'; ?> Taka.</span></h5>
             </div>
             <div class="easypay_content">
                 <h5>Method : <span>Nagad</span></h5>

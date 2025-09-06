@@ -74,7 +74,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <h5>Type : <span><?php echo esc_html($type); ?> Number.</span></h5>
             </div>
             <div class="easypay_content">
-                <h5>Number : <span id="bkashNumber"><?php echo esc_html($number); ?><b class="copy_btn" onclick="copyNumber()"><i class="fa-regular fa-copy"></i></b></span><b>Copy</b></h5>
+                <h5>Number : <span id="bkashNumber"><?php echo esc_html($number); ?></span><button type="button" onclick="copyNumber()">Copy</button></h5>
             </div>
             <div class="easypay_content">
                 <h5>Description : <span><?php echo esc_html($description); ?></span></h5>
@@ -92,7 +92,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <script>
     function copyNumber() {
-        const number = document.getElementById("bkashNumber").innerText;
+        const number = document.getElementById("bkashNumber").textContent.trim();
         navigator.clipboard.writeText(number).then(() => {
             alert("Number Copied: " + number);
         })

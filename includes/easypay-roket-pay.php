@@ -15,10 +15,6 @@ if ( ! class_exists( 'WooCommerce' ) ) {
 $order_id = isset($_GET['order_id']) ? intval($_GET['order_id']) : 0;
 $order = wc_get_order( $order_id );
 
-// if (!$order) {
-//     $redirect_url = plugins_url('includes/easypay-bkash-pay.php', __FILE__);
-//     exit;
-// }
 
 // Admin option get
 $type = get_option('easypay_select_option_roket');
@@ -28,9 +24,9 @@ $description = get_option('easypay_description_option_roket');
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $transaction = sanitize_text_field($_POST['transaction']);
     
-    // order update
-    // $order->update_status('processing', 'Payment completed via EasyPay Bkash. Transaction ID: ' . $transaction);
-
+     // order update
+    $order->update_status('processing', 'Payment completed via EasyPay Roket. Transaction ID: ' . $transaction);
+ 
     // Empty cart
     WC()->cart->empty_cart();
 
@@ -66,10 +62,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </div>
         <div class="easypay_box">
             <div class="easypay_content">
-                <h5>Order ID : <span>#</span></h5>
+                <h5>Order ID : <span>#<?php echo $order ? $order->get_id() : 'Not Found'; ?></span></h5>
             </div>
             <div class="easypay_content">
-                <h5>Total Pay : <span> Taka.</span></h5>
+                <h5>Total Pay : <span><?php echo $order ? $order->get_total() : '0'; ?> Taka.</span></h5>
             </div>
             <div class="easypay_content">
                 <h5>Method : <span>Roket</span></h5>
