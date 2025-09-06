@@ -32,6 +32,32 @@ add_action('wp_enqueue_scripts', function() {
 });
 
 
+// Plugin activation hook
+register_activation_hook(__FILE__, 'easypay_create_payment_page');
+
+function easypay_create_payment_page() {
+    $page_check = get_page_by_title('EasyPay Payments');
+    if (!isset($page_check->ID)) {
+        $page_content = '[easypau_payment_page]';
+
+        $page_id = wp_insert_post(array(
+            'post_title' => 'EasyPay Payments',
+            'post_type' => 'page',
+            'post_name' => 'easypay-payments',
+            'post_content' => $page_content,
+            'post_status' => 'publish',
+            'post_author' => 1,
+        ));
+    }
+}
+
+
+
+
+
+
+
+
 add_filter('woocommerce_payment_gateways', 'easypay_add_gateway_class');
 function easypay_add_gateway_class($gateways) {
     $gateways[] = 'WC_EasyPay_Bkash';
