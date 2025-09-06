@@ -168,7 +168,7 @@ function easypay_transactions_callback() {
             <td>#' . esc_html($row->user_id) . '</td>
             <td>' . esc_html($row->method) . '</td>
             <td>' . esc_html($row->type) . '</td>
-            <td>' . esc_html($row->transaction_id) . '</td>
+            <td>' . esc_html($row->transaction) . '</td>
             <td>' . esc_html($row->amount) . '</td>
             <td>' . esc_html($row->status) . '</td>
         </tr>';
@@ -182,13 +182,6 @@ function easypay_transactions_callback() {
     </div>
     <?php
 }
-
-
-
-
-
-
-
 
 
 // Setting Register
