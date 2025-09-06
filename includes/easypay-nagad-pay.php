@@ -15,10 +15,6 @@ if ( ! class_exists( 'WooCommerce' ) ) {
 $order_id = isset($_GET['order_id']) ? intval($_GET['order_id']) : 0;
 $order = wc_get_order( $order_id );
 
-// if (!$order) {
-//     $redirect_url = plugins_url('includes/easypay-bkash-pay.php', __FILE__);
-//     exit;
-// }
 
 // Admin option get
 $type = get_option('easypay_select_option_nagad');
@@ -28,9 +24,7 @@ $description = get_option('easypay_description_option_nagad');
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $transaction = sanitize_text_field($_POST['transaction']);
     
-    // order update
-    // $order->update_status('processing', 'Payment completed via EasyPay Bkash. Transaction ID: ' . $transaction);
-
+ 
     // Empty cart
     WC()->cart->empty_cart();
 

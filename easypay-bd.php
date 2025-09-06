@@ -85,7 +85,7 @@ class WC_EasyPay_Bkash extends WC_Payment_Gateway {
 
     public function process_payment($order_id) {
         $order = wc_get_order($order_id);
-        $redirect_url = plugins_url('includes/easypay-bkash-pay.php', __FILE__);
+        $redirect_url = plugins_url('includes/easypay-bkash-pay.php', __FILE__) . '?order_id=' . $order_id;
         return [
             'result' => 'success',
             'redirect' => $redirect_url,
@@ -130,7 +130,7 @@ class WC_EasyPay_Nagad extends WC_Payment_Gateway {
     
     public function process_payment($order_id) {
         $order = wc_get_order($order_id);
-        $redirect_url = plugins_url('includes/easypay-nagad-pay.php', __FILE__);
+        $redirect_url = plugins_url('includes/easypay-nagad-pay.php', __FILE__) . '?order_id=' . $order_id;
         return [
             'result' => 'success',
             'redirect' => $redirect_url,
@@ -175,7 +175,7 @@ class WC_EasyPay_Roket extends WC_Payment_Gateway {
    
     public function process_payment($order_id) {
         $order = wc_get_order($order_id);
-        $redirect_url = plugins_url('includes/easypay-roket-pay.php', __FILE__);
+        $redirect_url = plugins_url('includes/easypay-roket-pay.php', __FILE__) . '?order_id=' . $order_id;
         return [
             'result' => 'success',
             'redirect' => $redirect_url,
@@ -220,7 +220,7 @@ class WC_EasyPay_Upay extends WC_Payment_Gateway {
     
     public function process_payment($order_id) {
         $order = wc_get_order($order_id);
-        $redirect_url = plugins_url('includes/easypay-upay-pay.php', __FILE__);
+        $redirect_url = plugins_url('includes/easypay-upay-pay.php', __FILE__) . '?order_id=' . $order_id;
         return [
             'result' => 'success',
             'redirect' => $redirect_url,
