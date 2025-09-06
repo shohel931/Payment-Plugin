@@ -2,14 +2,11 @@
         const number = document.getElementById("bkashNumber").textContent.trim();
         navigator.clipboard.writeText(number).then(() => {
             alert("Number Copied: " + number);
-        }).catch(err => {
-            console.error('Failed to copy text: ', err);
-            alert("Failed to copy number. Please try manually.");
-        }
+        });
     }
 
 // Time 
-let timeLeft = 15 * 60;
+let timeLeft = 1 * 60;
 
 function startCountdown() {
     const timer = setInterval(() => {
@@ -23,7 +20,7 @@ function startCountdown() {
 
         if (timeLeft <= 0) {
             clearInterval(timer);
-            window.location.replace("https://shohelrana.top/");
+            window.location.replace("<?php echo plugins_url('includes/easypay-timeout.php', __FILE__); ?>");
         }
 
         timeLeft--;
