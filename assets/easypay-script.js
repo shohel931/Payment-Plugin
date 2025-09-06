@@ -2,7 +2,10 @@
         const number = document.getElementById("bkashNumber").textContent.trim();
         navigator.clipboard.writeText(number).then(() => {
             alert("Number Copied: " + number);
-        })
+        }).catch(err => {
+            console.error('Failed to copy text: ', err);
+            alert("Failed to copy number. Please try manually.");
+        }
     }
 
 // Time 
