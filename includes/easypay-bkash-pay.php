@@ -31,7 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     WC()->cart->empty_cart();
 
     // Redirect to thank you page
-    wp_safe_redirect(plugins_url('includes/easypay-success.php?order_id=' . $order->get_id()));
+   redirect(site_url('../includes/easypay-success.php?order_id=' . $order->get_id()));
     exit;
 }
 
@@ -81,7 +81,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <h5>Description : <span><?php echo esc_html($description); ?></span></h5>
             </div>
             <div class="easypay_content">
-                <form method="post" enctype="multipart/form-data">
+                <form method="post"  enctype="multipart/form-data">
                     <span>Transaction : <input type="text" name="transaction" id="" placeholder="ES987NLG9" required></span><br><br>
                     <span>Upload Image : <input type="file" name="image" id=""></span> <br><br>
                     <input type="submit" value="Submit">
