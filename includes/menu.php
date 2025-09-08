@@ -55,7 +55,10 @@ function menu_page() {
     );
 }
 
-
+// Remove Sub Menu 
+add_action('admin_menu', function() {
+    remove_submenu_page('easypay_bd', 'easypay_bd');
+});
 
 
 // Main Menu Page Callback
